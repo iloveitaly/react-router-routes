@@ -1,0 +1,30 @@
+[
+  {
+    "id": "root",
+    "path": "",
+    "file": "root.tsx",
+    "children": [
+      {
+        "id": "routes/index",
+        "index": true,
+        "file": "routes/index.tsx"
+      },
+      {
+        "id": "layouts/authenticated",
+        "file": "layouts/authenticated.tsx",
+        "children": [
+          {
+            "id": "routes/home",
+            "path": "/home",
+            "file": "routes/home.tsx"
+          },
+          {
+            "id": "routes/form",
+            "path": "/form",
+            "file": "routes/form.tsx"
+          }
+        ]
+      }
+    ]
+  }
+]
