@@ -1,15 +1,24 @@
 [project]
 name = "react-router-routes"
 version = "0.1.0"
-description = ""
-keywords = []
+description = "Generate strongly-typed Python helpers (TypedDict param classes + path/url builders) from a React Router v6+ route tree so Python code can build frontend URLs safely."
+keywords = [
+	"react-router",
+	"router",
+	"routes",
+	"url-generation",
+	"typed-routes",
+	"typed",
+	"cli",
+	"backend",
+	"frontend",
+	"integration",
+]
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.11"
 dependencies = [
 	"typer>=0.12.5",
 	"jinja2>=3.1.4",
-	"python-decouple>=3.8",
-	"typing-extensions>=4.12.2",
 ]
 authors = [{ name = "Michael Bianco", email = "mike@mikebian.co" }]
 urls = { "Repository" = "https://github.com/iloveitaly/react-router-routes" }
