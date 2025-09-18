@@ -5,7 +5,12 @@ Generate strongly-typed Python helpers (TypedDict param objects + overloads) fro
 
 What you get
 ------------
-Given a React Router project, the CLI runs `pnpm react-router routes --json`, walks the returned route objects, and produces a Python module containing:
+Given a React Router project, the CLI either:
+
+* Runs `pnpm react-router routes --json` (if you pass `--directory`), or
+* Reads a pre-generated JSON file (if you pass `--json-file`)
+
+It walks the returned route objects and produces a Python module containing:
 
 * `RoutePaths` Literal of every concrete route pattern (e.g. `/users/:userId?`, `/files/*`).
 * Per-route `TypedDict` classes containing snake_case parameter keys.
@@ -14,6 +19,8 @@ Given a React Router project, the CLI runs `pnpm react-router routes --json`, wa
 
 Installation
 ------------
+Requires Python 3.11+.
+
 Using uv (recommended):
 
 ```bash
@@ -32,16 +39,20 @@ Your JS project must have `react-router` and the `pnpm react-router routes --jso
 
 CLI Usage
 ---------
-The script entry point is named `react-router-routes` (see `pyproject.toml`). Run:
+The script entry point is named `react-router-routes` (see `pyproject.toml`).
+
+Two ways to supply routes:
+
+1. Have the tool invoke `pnpm react-router routes --json` by providing a directory:
 
 ```bash
-react-router-routes generate-route-types /path/to/js/app /path/to/output/routes_typing.py
+react-router-routes ./routes_typing.py --directory ./frontend
 ```
 
-Example:
+1. Provide an existing JSON file (output of `pnpm react-router routes --json`):
 
 ```bash
-react-router-routes generate-route-types ./frontend ./routes_typing.py
+react-router-routes ./routes_typing.py --json-file tests/react-router.json
 ```
 
 Then import the generated module in Python code:
@@ -53,29 +64,37 @@ react_router_path('/users/:userId', {'user_id': 123})  # -> '/users/123'
 react_router_url('/files/*', {'splat': 'docs/readme.md'}, base_url='https://example.com')
 ```
 
+ 
 Environment Variables
 ---------------------
+
 * `BASE_URL` (optional) – If set and you omit `base_url` when calling `react_router_url`, this value is prepended. If missing the function returns the path and logs a warning.
 * `LOG_LEVEL` (optional) – Standard Python logging level (INFO, DEBUG, etc.).
 
+ 
 Development
+
 -----------
 Clone and install dev deps:
 
 ```bash
-uv sync --all-extras --group dev
+uv sync --group dev
 ```
 
 Run tests:
 
 ```bash
-pytest -q
+uv run pytest
 ```
 
+ 
 Release process
----------------
+--------------
+
 This project uses `uv` for building and publishing. Adjust version in `pyproject.toml`, then build and publish as desired.
 
+ 
 License
--------
+------
+
 MIT (see repository).
