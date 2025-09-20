@@ -13,6 +13,35 @@ from jinja2 import Environment
 app = typer.Typer()
 
 
+def lint_generated_file(output_file: Path) -> None:
+    """Automatically lint the generated file with ruff if available."""
+    try:
+        # Check if ruff is available
+        subprocess.run(
+            ["ruff", "--version"],
+            capture_output=True,
+            check=True,
+        )
+        
+        # Run ruff check with --fix to automatically fix issues
+        subprocess.run(
+            ["ruff", "check", "--fix", str(output_file)],
+            capture_output=True,
+            check=False,  # Don't fail if there are lint errors
+        )
+        
+        # Run ruff format to format the code
+        subprocess.run(
+            ["ruff", "format", str(output_file)],
+            capture_output=True,
+            check=False,  # Don't fail if formatting changes are made
+        )
+        
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        # ruff is not available or failed, continue silently
+        pass
+
+
 def collect_route_patterns(routes: list[dict], parent_path: str = "") -> list[str]:
     patterns: list[str] = []
     for route in routes:
@@ -276,6 +305,9 @@ def generate_route_types(
     patterns = collect_route_patterns(routes_json)
     content = render_routes_module(patterns)
     output_file.write_text(content)
+    
+    # Automatically lint the generated file with ruff if available
+    lint_generated_file(output_file)
 
 
 if __name__ == "__main__":
