@@ -1,10 +1,9 @@
-react-router-routes
-====================
+# react-router-routes
 
 Generate strongly-typed Python helpers (TypedDict param objects + overloads) from a React Router v6+ route tree. This is useful when a Python backend, worker, or test suite needs to construct URLs that stay in sync with a JavaScript/TypeScript frontend using React Router.
 
-What you get
-------------
+## What you get
+
 Given a React Router project, the CLI either:
 
 * Runs `pnpm react-router routes --json` (if you pass `--directory`), or
@@ -17,8 +16,8 @@ It walks the returned route objects and produces a Python module containing:
 * Overloaded `react_router_path()` to build a relative path with validation + percent-encoding.
 * Overloaded `react_router_url()` to prepend a base URL (explicit argument or `BASE_URL` env var).
 
-Installation
-------------
+## Installation
+
 Requires Python 3.11+.
 
 Using uv (recommended):
@@ -33,12 +32,12 @@ Or with pip:
 pip install react-router-routes
 ```
 
-Prerequisites
--------------
+## Prerequisites
+
 Your JS project must have `react-router` and the `pnpm react-router routes --json` command available (React Router v6+ data APIs). The Python process must run inside (or have access to) that project directory so the CLI can execute the command.
 
-CLI Usage
----------
+## CLI Usage
+
 The script entry point is named `react-router-routes` (see `pyproject.toml`).
 
 Two ways to supply routes:
@@ -65,16 +64,14 @@ react_router_url('/files/*', {'splat': 'docs/readme.md'}, base_url='https://exam
 ```
 
  
-Environment Variables
----------------------
+## Environment Variables
 
 * `BASE_URL` (optional) – If set and you omit `base_url` when calling `react_router_url`, this value is prepended. If missing the function returns the path and logs a warning.
 * `LOG_LEVEL` (optional) – Standard Python logging level (INFO, DEBUG, etc.).
 
  
-Development
+## Development
 
------------
 Clone and install dev deps:
 
 ```bash
@@ -88,13 +85,11 @@ uv run pytest
 ```
 
  
-Release process
---------------
+## Release process
 
 This project uses `uv` for building and publishing. Adjust version in `pyproject.toml`, then build and publish as desired.
 
  
-License
-------
+## License
 
 MIT (see repository).
