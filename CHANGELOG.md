@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/iloveitaly/react-router-routes/compare/v0.1.0...v0.2.0) (2025-09-20)
+
+
+### Features
+
+* initial launch ([60b8762](https://github.com/iloveitaly/react-router-routes/commit/60b8762973044e8a0293c33195654806fc291b2f))
+
 ## 0.1.0 (2025-09-20)
 
 
