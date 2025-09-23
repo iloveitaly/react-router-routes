@@ -13,6 +13,51 @@ from jinja2 import Environment
 app = typer.Typer()
 
 
+def detect_package_manager(directory: Path) -> str:
+    """Detect which package manager to use based on lockfiles and availability.
+    
+    Priority order: bun, pnpm, npm
+    Falls back to npm if none are detected.
+    """
+    # Check for lockfiles in the directory
+    lockfile_to_manager = {
+        "bun.lockb": "bun",
+        "pnpm-lock.yaml": "pnpm", 
+        "package-lock.json": "npm",
+        "yarn.lock": "yarn"
+    }
+    
+    # First check for lockfiles to determine preferred package manager
+    for lockfile, manager in lockfile_to_manager.items():
+        if (directory / lockfile).exists():
+            # Verify the package manager is actually available
+            try:
+                subprocess.run(
+                    [manager, "--version"],
+                    capture_output=True,
+                    check=True,
+                )
+                return manager
+            except (subprocess.CalledProcessError, FileNotFoundError):
+                continue
+    
+    # If no lockfile found, check availability in preferred order
+    preferred_order = ["bun", "pnpm", "npm"]
+    for manager in preferred_order:
+        try:
+            subprocess.run(
+                [manager, "--version"],
+                capture_output=True,
+                check=True,
+            )
+            return manager
+        except (subprocess.CalledProcessError, FileNotFoundError):
+            continue
+    
+    # Fallback to npm (most likely to be available)
+    return "npm"
+
+
 def lint_generated_file(output_file: Path) -> None:
     """Automatically lint the generated file with ruff if available."""
     try:
@@ -269,13 +314,13 @@ def generate_route_types(
         None,
         "--directory",
         "-d",
-        help="Path to React Router project directory (used to invoke 'pnpm react-router routes --json')",
+        help="Path to React Router project directory (auto-detects package manager: bun, pnpm, or npm)",
     ),
     json_file: Path | None = typer.Option(
         None,
         "--json-file",
         "-j",
-        help="Path to an existing react-router routes JSON file (skips invoking pnpm)",
+        help="Path to an existing react-router routes JSON file (skips package manager detection)",
     ),
 ):
     """Generate Python route typings and helpers from React Router routes.
@@ -289,16 +334,19 @@ def generate_route_types(
     if json_file is not None:
         routes_json = json.loads(json_file.read_text())
     else:
-        # Fallback to invoking the CLI
+        # Detect and use appropriate package manager
+        package_manager = detect_package_manager(directory)
+        typer.echo(f"Using package manager: {package_manager}")
+        
         result = subprocess.run(
-            ["pnpm", "react-router", "routes", "--json"],
+            [package_manager, "react-router", "routes", "--json"],
             cwd=directory,
             capture_output=True,
             text=True,
         )
 
         if result.returncode != 0:
-            typer.echo(f"Error running react-router: {result.stderr}")
+            typer.echo(f"Error running react-router with {package_manager}: {result.stderr}")
             raise typer.Exit(1)
         routes_json = json.loads(result.stdout)
 
