@@ -6,7 +6,7 @@ Generate strongly-typed Python helpers (TypedDict param objects + overloads) fro
 
 Given a React Router project, the CLI either:
 
-* Runs `pnpm react-router routes --json` (if you pass `--directory`), or
+* Auto-detects your package manager (bun, pnpm, or npm) and runs `<package-manager> react-router routes --json` (if you pass `--directory`), or
 * Reads a pre-generated JSON file (if you pass `--json-file`)
 
 It walks the returned route objects and produces a Python module containing:
@@ -34,7 +34,7 @@ pip install react-router-routes
 
 ## Prerequisites
 
-Your JS project must have `react-router` and the `pnpm react-router routes --json` command available (React Router v6+ data APIs). The Python process must run inside (or have access to) that project directory so the CLI can execute the command.
+Your JS project must have `react-router` and a package manager with the `react-router routes --json` command available (React Router v6+ data APIs). The tool automatically detects your package manager (bun, pnpm, or npm) based on lockfiles and availability. The Python process must run inside (or have access to) that project directory so the CLI can execute the command.
 
 ## CLI Usage
 
@@ -42,7 +42,7 @@ The script entry point is named `react-router-routes` (see `pyproject.toml`).
 
 Two ways to supply routes:
 
-1. Have the tool invoke `pnpm react-router routes --json` by providing a directory:
+1. Have the tool invoke `<package-manager> react-router routes --json` by providing a directory (auto-detects bun, pnpm, or npm):
 
 ```bash
 react-router-routes ./routes_typing.py --directory ./frontend
