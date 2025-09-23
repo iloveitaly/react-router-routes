@@ -2,7 +2,7 @@
 
 Generate strongly-typed Python helpers (TypedDict param objects + overloads) from a React Router v6+ route tree. This is useful when a Python backend, worker, or test suite needs to construct URLs that stay in sync with a JavaScript/TypeScript frontend using React Router.
 
-## What you get
+## How it works
 
 Given a React Router project, the CLI either:
 
@@ -83,13 +83,7 @@ Run tests:
 ```bash
 uv run pytest
 ```
-
- 
-## Release process
-
-This project uses `uv` for building and publishing. Adjust version in `pyproject.toml`, then build and publish as desired.
-
- 
+  
 ## License
 
 MIT (see repository).
