@@ -15,6 +15,7 @@ It walks the returned route objects and produces a Python module containing:
 * Per-route `TypedDict` classes containing snake_case parameter keys.
 * Overloaded `react_router_path()` to build a relative path with validation + percent-encoding.
 * Overloaded `react_router_url()` to prepend a base URL (explicit argument or `BASE_URL` env var).
+* Optional `url_params` argument on both functions to append query string parameters.
 
 ## Installation
 
@@ -59,8 +60,19 @@ Then import the generated module in Python code:
 ```python
 from routes_typing import react_router_path, react_router_url, RoutePaths
 
+# Basic path generation
 react_router_path('/users/:userId', {'user_id': 123})  # -> '/users/123'
+
+# URL generation with base URL
 react_router_url('/files/*', {'splat': 'docs/readme.md'}, base_url='https://example.com')
+# -> 'https://example.com/files/docs/readme.md'
+
+# Adding query parameters with url_params
+react_router_path('/users/:userId', {'user_id': 123}, url_params={'tab': 'profile', 'edit': 'true'})
+# -> '/users/123?tab=profile&edit=true'
+
+react_router_url('/home', base_url='https://example.com', url_params={'page': '1', 'sort': 'name'})
+# -> 'https://example.com/home?page=1&sort=name'
 ```
 
  
