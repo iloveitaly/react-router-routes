@@ -14,12 +14,7 @@ app = typer.Typer()
 
 
 def detect_package_manager(directory: Path) -> str:
-    """Detect which package manager to use based on lockfiles and availability.
-    
-    Priority order: bun, pnpm, npm
-    Falls back to npm if none are detected.
-    """
-    # Check for lockfiles in the directory
+    """Detect which package manager to use based on lockfiles and availability."""
     lockfile_to_manager = {
         "bun.lockb": "bun",
         "pnpm-lock.yaml": "pnpm", 
@@ -27,35 +22,27 @@ def detect_package_manager(directory: Path) -> str:
         "yarn.lock": "yarn"
     }
     
-    # First check for lockfiles to determine preferred package manager
     for lockfile, manager in lockfile_to_manager.items():
-        if (directory / lockfile).exists():
-            # Verify the package manager is actually available
-            try:
-                subprocess.run(
-                    [manager, "--version"],
-                    capture_output=True,
-                    check=True,
-                )
-                return manager
-            except (subprocess.CalledProcessError, FileNotFoundError):
-                continue
-    
-    # If no lockfile found, check availability in preferred order
-    preferred_order = ["bun", "pnpm", "npm"]
-    for manager in preferred_order:
-        try:
-            subprocess.run(
-                [manager, "--version"],
-                capture_output=True,
-                check=True,
-            )
-            return manager
-        except (subprocess.CalledProcessError, FileNotFoundError):
+        if not (directory / lockfile).exists():
             continue
+            
+        if _is_package_manager_available(manager):
+            return manager
     
-    # Fallback to npm (most likely to be available)
+    for manager in ["bun", "pnpm", "npm"]:
+        if _is_package_manager_available(manager):
+            return manager
+    
     return "npm"
+
+
+def _is_package_manager_available(manager: str) -> bool:
+    """Check if package manager is available on system."""
+    try:
+        subprocess.run([manager, "--version"], capture_output=True, check=True)
+        return True
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return False
 
 
 def lint_generated_file(output_file: Path) -> None:
