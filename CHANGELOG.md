@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.1](https://github.com/iloveitaly/react-router-routes/compare/v0.2.0...v0.2.1) (2025-09-25)
+
+
+### Documentation
+
+* add coding instructions and agent prompts to .github directory ([e2aabaf](https://github.com/iloveitaly/react-router-routes/commit/e2aabafcf27d7ec06f81636cb23916c8807daecd))
+* Revise README to improve structure and clarity ([de30d7b](https://github.com/iloveitaly/react-router-routes/commit/de30d7b61a4c10a4cb8f766298c00507ca1c31f0))
+
 ## [0.2.0](https://github.com/iloveitaly/react-router-routes/compare/v0.1.0...v0.2.0) (2025-09-20)
 
 
