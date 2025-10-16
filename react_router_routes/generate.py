@@ -1,7 +1,3 @@
-"""
-py app/lib/react_router_generate.py web/ ./react_router_routes.py
-"""
-
 import json
 import re
 import subprocess
