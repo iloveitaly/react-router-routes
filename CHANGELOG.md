@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.2](https://github.com/iloveitaly/react-router-routes/compare/v0.2.1...v0.2.2) (2025-10-21)
+
+
+### Documentation
+
+* add live usage example link to README ([d7f364e](https://github.com/iloveitaly/react-router-routes/commit/d7f364e8b38ce8d01ffc5e6cf9ae738fc754ba3b))
+
 ## [0.2.1](https://github.com/iloveitaly/react-router-routes/compare/v0.2.0...v0.2.1) (2025-09-25)
 
 
