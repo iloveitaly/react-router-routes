@@ -13,22 +13,22 @@ def detect_package_manager(directory: Path) -> str:
     """Detect which package manager to use based on lockfiles and availability."""
     lockfile_to_manager = {
         "bun.lockb": "bun",
-        "pnpm-lock.yaml": "pnpm", 
+        "pnpm-lock.yaml": "pnpm",
         "package-lock.json": "npm",
-        "yarn.lock": "yarn"
+        "yarn.lock": "yarn",
     }
-    
+
     for lockfile, manager in lockfile_to_manager.items():
         if not (directory / lockfile).exists():
             continue
-            
+
         if _is_package_manager_available(manager):
             return manager
-    
+
     for manager in ["bun", "pnpm", "npm"]:
         if _is_package_manager_available(manager):
             return manager
-    
+
     return "npm"
 
 
@@ -50,21 +50,21 @@ def lint_generated_file(output_file: Path) -> None:
             capture_output=True,
             check=True,
         )
-        
+
         # Run ruff check with --fix to automatically fix issues
         subprocess.run(
             ["ruff", "check", "--fix", str(output_file)],
             capture_output=True,
             check=False,  # Don't fail if there are lint errors
         )
-        
+
         # Run ruff format to format the code
         subprocess.run(
             ["ruff", "format", str(output_file)],
             capture_output=True,
             check=False,  # Don't fail if formatting changes are made
         )
-        
+
     except (subprocess.CalledProcessError, FileNotFoundError):
         # ruff is not available or failed, continue silently
         pass
@@ -234,12 +234,12 @@ def react_router_path(path: RoutePaths, params: Mapping[str, object] | None = No
     rendered = re.sub(r"/{2,}", "/", rendered)
     if rendered != "/" and rendered.endswith("/"):
         rendered = rendered[:-1]
-    
+
     # Append query parameters if provided
     if url_params:
         query_string = urlencode(url_params)
         rendered += f"?{query_string}"
-    
+
     return rendered
 
 # overloads for url
@@ -327,7 +327,7 @@ def generate_route_types(
         # Detect and use appropriate package manager
         package_manager = detect_package_manager(directory)
         typer.echo(f"Using package manager: {package_manager}")
-        
+
         result = subprocess.run(
             [package_manager, "react-router", "routes", "--json"],
             cwd=directory,
@@ -336,14 +336,16 @@ def generate_route_types(
         )
 
         if result.returncode != 0:
-            typer.echo(f"Error running react-router with {package_manager}: {result.stderr}")
+            typer.echo(
+                f"Error running react-router with {package_manager}: {result.stderr}"
+            )
             raise typer.Exit(1)
         routes_json = json.loads(result.stdout)
 
     patterns = collect_route_patterns(routes_json)
     content = render_routes_module(patterns)
     output_file.write_text(content)
-    
+
     # Automatically lint the generated file with ruff if available
     lint_generated_file(output_file)
 
