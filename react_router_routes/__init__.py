@@ -4,16 +4,11 @@ Running the installed script (configured via [project.scripts]) will
 invoke Typer's CLI defined in `generate.py`.
 """
 
-import logging
-import os
+from structlog_config import configure_logger
 
 from .generate import app
 
-logging.basicConfig(
-    level=os.environ.get("LOG_LEVEL", "INFO").upper(),
-)
-
-logger = logging.getLogger(__name__)
+logger = configure_logger()
 
 
 def main() -> None:  # console_scripts entry point

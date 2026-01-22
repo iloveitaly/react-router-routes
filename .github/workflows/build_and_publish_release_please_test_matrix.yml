@@ -4,11 +4,13 @@ on:
     branches:
       - main
       - master
+  pull_request: {}
 
 permissions:
   contents: write
 
 env:
+  # avoid build failures due to flaky pypi
   PIP_DEFAULT_TIMEOUT: 60
   PIP_RETRIES: 5
 
@@ -16,11 +18,23 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: jdx/mise-action@v3
+        env:
+          MISE_ENV: ci
+      - uses: iloveitaly/github-action-direnv-load-and-mask@master
+      - run: uv sync
+      - run: just lint
+
   matrix-test:
+    needs: lint
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-        python-version: ["3.13", "3.12", "3.11", "3.10", "3.9"]
+        python-version: ["3.14", "3.13", "3.12", "3.11"]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v6
