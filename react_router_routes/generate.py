@@ -1,12 +1,15 @@
 import json
+import os
 import re
 import subprocess
 from pathlib import Path
 
 import typer
 from jinja2 import Environment
+from structlog_config import configure_logger
 
 app = typer.Typer()
+log = configure_logger()
 
 
 def detect_package_manager(directory: Path) -> str:
@@ -312,18 +315,30 @@ def generate_route_types(
         "-j",
         help="Path to an existing react-router routes JSON file (skips package manager detection)",
     ),
+    verbose: bool = typer.Option(
+        False,
+        "--verbose",
+        "-v",
+        help="Enable debug logging",
+    ),
 ):
     """Generate Python route typings and helpers from React Router routes.
 
     You must supply either --json-file or --directory. If both are supplied, --json-file wins.
     """
 
-    if json_file is None and directory is None:
-        raise typer.BadParameter("Provide either --json-file or --directory")
+    if verbose:
+        os.environ["LOG_LEVEL"] = "DEBUG"
+        global log
+        log = configure_logger()
 
     if json_file is not None:
         routes_json = json.loads(json_file.read_text())
     else:
+        if directory is None:
+            directory = Path.cwd()
+            log.info("using default directory", directory=directory)
+
         # Detect and use appropriate package manager
         package_manager = detect_package_manager(directory)
         typer.echo(f"Using package manager: {package_manager}")
@@ -336,9 +351,16 @@ def generate_route_types(
         )
 
         if result.returncode != 0:
-            typer.echo(
-                f"Error running react-router with {package_manager}: {result.stderr}"
+            command = " ".join(str(arg) for arg in result.args)
+            log.debug(
+                "react-router command failed",
+                package_manager=package_manager,
+                command=command,
+                exit_code=result.returncode,
+                stdout=result.stdout or "",
+                stderr=result.stderr or "",
             )
+            typer.echo(f"Error running react-router with {package_manager}")
             raise typer.Exit(1)
         routes_json = json.loads(result.stdout)
 
@@ -348,6 +370,13 @@ def generate_route_types(
 
     # Automatically lint the generated file with ruff if available
     lint_generated_file(output_file)
+
+    try:
+        relative_output = output_file.relative_to(Path.cwd())
+    except ValueError:
+        relative_output = output_file
+
+    typer.secho(f"Generated route types: {relative_output}", fg=typer.colors.GREEN)
 
 
 if __name__ == "__main__":
