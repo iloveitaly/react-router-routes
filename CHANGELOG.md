@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.3.0](https://github.com/iloveitaly/react-router-routes/compare/v0.2.1...v0.3.0) (2026-01-22)
+
+
+### Features
+
+* **generate:** add logging and verbose flag to CLI ([dcd7e98](https://github.com/iloveitaly/react-router-routes/commit/dcd7e98fcb242534d24e21e0ca772a2eb4ee7500))
+
+
+### Documentation
+
+* add live usage example link to README ([d7f364e](https://github.com/iloveitaly/react-router-routes/commit/d7f364e8b38ce8d01ffc5e6cf9ae738fc754ba3b))
+* add MIT license file for project distribution ([d62941a](https://github.com/iloveitaly/react-router-routes/commit/d62941acb8bc245c12924cd0c27be0e8b4350eea))
+* link license section to LICENSE file in README ([7fbdb71](https://github.com/iloveitaly/react-router-routes/commit/7fbdb71db6fce47d9780a637af64c35a0ced64b6))
+
 ## [0.2.1](https://github.com/iloveitaly/react-router-routes/compare/v0.2.0...v0.2.1) (2025-09-25)
 
 
