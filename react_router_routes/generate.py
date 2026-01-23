@@ -2,6 +2,7 @@ import json
 import os
 import re
 import subprocess
+from importlib.metadata import version
 from pathlib import Path
 
 import typer
@@ -10,6 +11,29 @@ from structlog_config import configure_logger
 
 app = typer.Typer()
 log = configure_logger()
+
+
+def version_callback(value: bool):
+    """Display version information and exit."""
+    if value:
+        pkg_version = version("react-router-routes")
+        typer.echo(f"react-router-routes version {pkg_version}")
+        raise typer.Exit()
+
+
+@app.callback()
+def common_options(
+    version_flag: bool = typer.Option(
+        False,
+        "--version",
+        "-V",
+        callback=version_callback,
+        is_eager=True,
+        help="Show version and exit.",
+    ),
+):
+    """Generate TypeScript route definitions from React Router routes."""
+    pass
 
 
 def detect_package_manager(directory: Path) -> str:
