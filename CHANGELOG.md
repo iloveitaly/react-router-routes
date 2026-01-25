@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/iloveitaly/react-router-routes/compare/v0.3.0...v0.4.0) (2026-01-23)
+
+
+### Features
+
+* add global --version flag to CLI using typer ([d3469de](https://github.com/iloveitaly/react-router-routes/commit/d3469ded947422f1d16d2a50da64657024c37fd9))
+
 ## [0.3.0](https://github.com/iloveitaly/react-router-routes/compare/v0.2.1...v0.3.0) (2026-01-22)
 
 
