@@ -83,19 +83,4 @@ react_router_url('/home', base_url='https://example.com', url_params={'page': '1
 * `BASE_URL` (optional) – If set and you omit `base_url` when calling `react_router_url`, this value is prepended. If missing the function returns the path and logs a warning.
 * `LOG_LEVEL` (optional) – Standard Python logging level (INFO, DEBUG, etc.).
 
-
-## Development
-
-Clone and install dev deps:
-
-```bash
-uv sync --group dev
-```
-
-Run tests:
-
-```bash
-uv run pytest
-```
-
 ## [MIT License](LICENSE)
