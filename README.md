@@ -21,18 +21,10 @@ It walks the returned route objects and produces a Python module containing:
 
 ## Installation
 
-Requires Python 3.11+.
-
 Using uv (recommended):
 
 ```bash
 uv add react-router-routes
-```
-
-Or with pip:
-
-```bash
-pip install react-router-routes
 ```
 
 ## Prerequisites
