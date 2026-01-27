@@ -1,2 +1,2 @@
 # this exact file name is required in this exact location if updates are to work
-{"_commit": "v1.0.0-8-g6d95b9e", "_src_path": "https://github.com/iloveitaly/python-package-template", "project_name": "react-router-routes", "full_name": "Michael Bianco", "email": "mike@mikebian.co", "github_username": "iloveitaly", "build_workflow": "release_please_matrix", "add_llm_rules": false, "include_postgres": false}
+{"_commit": "v1.0.0-19-gb5ad190", "_src_path": "https://github.com/iloveitaly/python-package-template", "project_name": "react-router-routes", "full_name": "Michael Bianco", "email": "mike@mikebian.co", "github_username": "iloveitaly", "build_workflow": "release_please_matrix", "add_llm_rules": false, "include_postgres": false}
