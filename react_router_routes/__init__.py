@@ -6,7 +6,7 @@ invoke Typer's CLI defined in `generate.py`.
 
 from structlog_config import configure_logger
 
-from .generate import app
+from .generate import main as _main
 
 logger = configure_logger()
 
@@ -15,9 +15,9 @@ def main() -> None:  # console_scripts entry point
     """Dispatch to the Typer application.
 
     Example:
-        react-router-routes generate-route-types ./js-app ./routes_typing.py
+        react-router-routes ./routes_typing.py --directory ./js-app
     """
-    app()
+    _main()
 
 
-__all__ = ["main", "app"]
+__all__ = ["main"]

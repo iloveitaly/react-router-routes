@@ -9,7 +9,6 @@ import typer
 from jinja2 import Environment
 from structlog_config import configure_logger
 
-app = typer.Typer()
 log = configure_logger()
 
 
@@ -307,7 +306,6 @@ def render_routes_module(patterns: list[str]) -> str:
     return template.render(patterns=patterns, routes=routes) + "\n"
 
 
-@app.callback(invoke_without_command=True)
 def generate_route_types(
     output_file: Path = typer.Argument(
         ..., help="Path to output routes_typing.py file"
@@ -396,5 +394,9 @@ def generate_route_types(
     typer.secho(f"Generated route types: {relative_output}", fg=typer.colors.GREEN)
 
 
+def main():
+    typer.run(generate_route_types)
+
+
 if __name__ == "__main__":
-    app()
+    main()
