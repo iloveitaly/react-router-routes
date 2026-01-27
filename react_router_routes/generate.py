@@ -21,21 +21,6 @@ def version_callback(value: bool):
         raise typer.Exit()
 
 
-@app.callback()
-def common_options(
-    version_flag: bool = typer.Option(
-        False,
-        "--version",
-        "-V",
-        callback=version_callback,
-        is_eager=True,
-        help="Show version and exit.",
-    ),
-):
-    """Generate TypeScript route definitions from React Router routes."""
-    pass
-
-
 def detect_package_manager(directory: Path) -> str:
     """Detect which package manager to use based on lockfiles and availability."""
     lockfile_to_manager = {
@@ -322,7 +307,7 @@ def render_routes_module(patterns: list[str]) -> str:
     return template.render(patterns=patterns, routes=routes) + "\n"
 
 
-@app.command()
+@app.callback(invoke_without_command=True)
 def generate_route_types(
     output_file: Path = typer.Argument(
         ..., help="Path to output routes_typing.py file"
@@ -344,6 +329,14 @@ def generate_route_types(
         "--verbose",
         "-v",
         help="Enable debug logging",
+    ),
+    version_flag: bool = typer.Option(
+        False,
+        "--version",
+        "-V",
+        callback=version_callback,
+        is_eager=True,
+        help="Show version and exit.",
     ),
 ):
     """Generate Python route typings and helpers from React Router routes.
