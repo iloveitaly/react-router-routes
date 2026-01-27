@@ -21,3 +21,4 @@ Write or update the @README.md
 Here's the writing style you should use:
 
 > Conversational and personal, often in first-person with enthusiastic, reflective tone on tech, startups, and health topics. Logical structure: hooks, breakdowns via subsections/lists, and practical steps. Vocabulary mixes everyday terms with technical jargon (e.g., tmux, Caddy, REPL). Short-to-medium sentences for clarity; semi-formal with casual asides and anecdotes
+

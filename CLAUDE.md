@@ -44,11 +44,12 @@ Pay careful attention to these instructions when running tests, generating datab
   - Initially run `pytest --ignore=tests/integration` then only run `pytest tests/integration`
   - When debugging integration tests look at `$PLAYWRIGHT_RESULT_DIRECTORY`. There's a directory for each test failure. In that directory you fill find a `failure.html` containing the rendered DOM of the page on failure and a screenshot of the contents. Use these to debug why it failed.
 - Do not attempt to create or run database migrations. Pause your work and let me know you need a migration run.
-- Use `uv add` to add python packages. No need for `pip compile`, etc.
-- Use `pnpm` and not `pnpm`. Run all `pnpm` commands in the `web/` directory.
+
+Look at @local.md
 
 
 ## Python
+
 
 When writing Python:
 
@@ -65,6 +66,10 @@ When writing Python:
 * Never edit or create any files in `migrations/versions/`
 * Place all comments on dedicated lines immediately above the code statements they describe. Avoid inline comments appended to the end of code lines.
 * Do not `try/catch` raw `Exceptions` unless explicitly told to. Prefer to let exceptions raise and cause an explicit error.
+
+### Package Management
+
+- Use `uv add` to add python packages. No need for `pip compile`, `pip install`, etc.
 
 ### Typing
 
@@ -101,50 +106,3 @@ params = f.compact({"city": city, "stateCode": stateCode})
 
 * Use the `whenever` library for datetime + time instead of the stdlib date library. `Instant.now().format_iso()`
 * DateTime mutation should explicitly opt in to a specific timezone `SystemDateTime.now().add(days=-7)`
-
-### Database & ORM
-
-When accessing database records:
-
-* SQLModel (wrapping SQLAlchemy) is used
-* `Model.one(primary_key)` or `Model.get(primary_key)` should be used to retrieve a single record
-* Do not manage database sessions, these are managed by a custom tool
-  * Use `TheModel(...).save()` to persist a record
-  * Use `TheModel.where(...).order_by(...)` to query records. `.where()` returns a SQLAlchemy select object that you can further customize the query.
-  * To iterate over the records, you'll need to end your query chain with `.all()` which returns an interator: `TheModel.where(...)...all()`
-* Instead of repulling a record `order = HostScreeningOrder.one(order.id)` refresh it using `order.refresh()`
-
-When writing database models:
-
-* Don't use `Field(...)` unless required (i.e. when specifying a JSON type for a `dict` or pydantic model using `Field(sa_type=JSONB)`). For instance, use `= None` instead of `= Field(default=None)`.
-* Add enum classes close to where they are used, unless they are used across multiple classes (then put them at the top of the file)
-* Use `ModelName.foreign_key()` when generating a foreign key field
-* Store currency as an integer, e.g. $1 = 100.
-* `before_save`, `after_save(self):`, `after_updated(self):` are lifecycle methods (modelled after ActiveRecord) you can use.
-
-Example:
-
-```python
-class Distribution(
-    BaseModel, TimestampsMixin, SoftDeletionMixin, TypeIDMixin("dst"), table=True
-):
-    """Triple-quoted strings for multi-line class docstring"""
-
-    date_field_with_comment: datetime | None = None
-    "use a string under the field to add a comment about the field"
-
-    # no need to add a comment about an obvious field; no need for line breaks if there are no field-level docstrings
-    title: str = Field(unique=True)
-    state: str
-
-    optional_field: str | None = None
-
-    # here's how relationships are constructed
-    doctor_id: TypeIDType = Doctor.foreign_key()
-    doctor: Doctor = Relationship()
-
-    @computed_field
-    @property
-    def order_count(self) -> int:
-        return self.where(Order.distribution_id == self.id).count()
-```

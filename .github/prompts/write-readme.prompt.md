@@ -1,3 +1,7 @@
+---
+mode: 'agent'
+description: ''
+---
 ## Write Readme
 
 Write or update the @README.md
