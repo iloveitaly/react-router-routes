@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/iloveitaly/react-router-routes/compare/v0.4.0...v0.4.1) (2026-01-27)
+
+
+### Bug Fixes
+
+* forcing release for subcommand fix ([e5f8ca7](https://github.com/iloveitaly/react-router-routes/commit/e5f8ca7be3f28ee45e31d71b883730cc1af641e5))
+
 ## [0.4.0](https://github.com/iloveitaly/react-router-routes/compare/v0.3.0...v0.4.0) (2026-01-23)
 
 
