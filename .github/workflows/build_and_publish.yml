@@ -55,7 +55,8 @@ jobs:
       release_created: ${{ steps.release.outputs.release_created }}
     steps:
       - uses: actions/checkout@v6
-      - uses: googleapis/release-please-action@v4
+      # - uses: googleapis/release-please-action@v4
+      - uses: iloveitaly/release-please-action@release-permission-debugging
         id: release
         with:
           release-type: python
