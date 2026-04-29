@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.4.2](https://github.com/iloveitaly/react-router-routes/compare/v0.4.1...v0.4.2) (2026-04-29)
+
+
+### Bug Fixes
+
+* replace typing.Mapping with collections.abc.Mapping ([3deae68](https://github.com/iloveitaly/react-router-routes/commit/3deae68a1c8d10bb40ea01bb350d57ec2609461f))
+
+
+### Documentation
+
+* rename GEMINI.md to AGENTS.md ([3dfdb7a](https://github.com/iloveitaly/react-router-routes/commit/3dfdb7a206808e7e9c9537d1133952e3037ea757))
+
 ## [0.4.1](https://github.com/iloveitaly/react-router-routes/compare/v0.4.0...v0.4.1) (2026-01-27)
 
 

@@ -1,6 +1,6 @@
 [project]
 name = "react-router-routes"
-version = "0.4.1"
+version = "0.4.2"
 description = "Generate strongly-typed Python helpers (TypedDict param classes + path/url builders) from a React Router v6+ route tree so Python code can build frontend URLs safely."
 keywords = [
     "react-router",
