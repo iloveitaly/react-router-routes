@@ -10,6 +10,8 @@ from .generate import main as _main
 
 logger = configure_logger()
 
+log = logger
+
 
 def main() -> None:  # console_scripts entry point
     """Dispatch to the Typer application.

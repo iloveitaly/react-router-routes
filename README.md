@@ -1,3 +1,8 @@
+[![Release Notes](https://img.shields.io/github/release/iloveitaly/react-router-routes)](https://github.com/iloveitaly/react-router-routes/releases)
+[![Downloads](https://static.pepy.tech/badge/react-router-routes/month)](https://pepy.tech/project/react-router-routes)
+![GitHub CI Status](https://github.com/iloveitaly/react-router-routes/actions/workflows/build_and_publish.yml/badge.svg)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 # Generate Typed Python URL Helpers from React Router Routes
 
 Generate strongly-typed Python helpers (TypedDict param objects + overloads) from a React Router v6+ route tree. This is useful when a Python backend, worker, or test suite needs to construct URLs that stay in sync with a JavaScript/TypeScript frontend using React Router.
@@ -76,3 +81,7 @@ react_router_url('/home', base_url='https://example.com', url_params={'page': '1
 * `LOG_LEVEL` (optional) – Standard Python logging level (INFO, DEBUG, etc.).
 
 ## [MIT License](LICENSE)
+
+---
+
+*This project was created from [iloveitaly/python-package-template](https://github.com/iloveitaly/python-package-template)*
