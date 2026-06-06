@@ -81,6 +81,10 @@ def lint_generated_file(output_file: Path) -> None:
         pass
 
 
+def _command_to_string(args: list[str] | tuple[str, ...]) -> str:
+    return " ".join(str(arg) for arg in args)
+
+
 def collect_route_patterns(routes: list[dict], parent_path: str = "") -> list[str]:
     patterns: list[str] = []
     for route in routes:
@@ -367,7 +371,7 @@ def generate_route_types(
         )
 
         if result.returncode != 0:
-            command = " ".join(str(arg) for arg in result.args)
+            command = _command_to_string(result.args)
             log.debug(
                 "react-router command failed",
                 package_manager=package_manager,
@@ -378,7 +382,27 @@ def generate_route_types(
             )
             typer.echo(f"Error running react-router with {package_manager}")
             raise typer.Exit(1)
-        routes_json = json.loads(result.stdout)
+
+        try:
+            routes_json = json.loads(result.stdout)
+        except json.JSONDecodeError as exc:
+            command = _command_to_string(result.args)
+            typer.echo(f"Error parsing JSON from `{command}`", err=True)
+            typer.echo(
+                (
+                    "react-router returned invalid JSON: "
+                    f"{exc.msg} at line {exc.lineno}, column {exc.colno}"
+                ),
+                err=True,
+            )
+            typer.echo(
+                "Run this manually in your app directory to inspect the raw output:",
+                err=True,
+            )
+            typer.echo(f"  cd {directory}", err=True)
+            typer.echo(f"  {command}", err=True)
+
+            raise typer.Exit(1) from exc
 
     patterns = collect_route_patterns(routes_json)
     content = render_routes_module(patterns)
