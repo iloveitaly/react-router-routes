@@ -29,7 +29,7 @@ def test_generate_route_types_surfaces_invalid_json_output(
                 return subprocess.CompletedProcess(
                     args,
                     0,
-                    stdout="CLI info\n[{\"id\": \"root\", \"path\": \"\", \"file\": \"root.tsx\"}]",
+                    stdout='CLI info\n[{"id": "root", "path": "", "file": "root.tsx"}]',
                 )
 
             raise FileNotFoundError(f"unexpected command: {args}")
@@ -46,6 +46,9 @@ def test_generate_route_types_surfaces_invalid_json_output(
     captured = capsys.readouterr()
     assert "Error parsing JSON from `pnpm react-router routes --json`" in captured.err
     assert "line 1, column 1" in captured.err
-    assert "Run this manually in your app directory to inspect the raw output:" in captured.err
+    assert (
+        "Run this manually in your app directory to inspect the raw output:"
+        in captured.err
+    )
     assert f"cd {project_dir}" in captured.err
     assert "pnpm react-router routes --json" in captured.err
