@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://github.com/iloveitaly/react-router-routes/compare/v0.4.2...v0.5.0) (2026-06-18)
+
+
+### Features
+
+* improve error reporting for invalid JSON from react-router ([04e8a74](https://github.com/iloveitaly/react-router-routes/commit/04e8a74ca2857904f31ac8124a11df1a70ca7d76))
+
 ## [0.4.2](https://github.com/iloveitaly/react-router-routes/compare/v0.4.1...v0.4.2) (2026-04-29)
 
 
