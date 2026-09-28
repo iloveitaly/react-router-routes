@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from pathlib import Path
 
-
 from react_router_routes.generate import generate_route_types
 
 
