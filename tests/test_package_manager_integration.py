@@ -56,6 +56,7 @@ def test_generate_route_types_detects_package_manager(tmp_path: Path) -> None:
             cwd=project_dir,
             capture_output=True,
             text=True,
+            check=False,
         )
 
         # Verify output file was created with proper content
@@ -111,6 +112,7 @@ def test_generate_route_types_falls_back_to_npm(tmp_path: Path) -> None:
             cwd=project_dir,
             capture_output=True,
             text=True,
+            check=False,
         )
 
         # Verify output file was created
