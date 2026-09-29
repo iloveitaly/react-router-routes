@@ -312,16 +312,16 @@ def render_routes_module(patterns: list[str]) -> str:
 
 
 def generate_route_types(
-    output_file: Path = typer.Argument(
+    output_file: Path = typer.Argument(  # noqa: B008 - typer API requires declarations in defaults
         ..., help="Path to output routes_typing.py file"
     ),
-    directory: Path | None = typer.Option(
+    directory: Path | None = typer.Option(  # noqa: B008 - typer API requires declarations in defaults
         None,
         "--directory",
         "-d",
         help="Path to React Router project directory (auto-detects package manager: bun, pnpm, or npm)",
     ),
-    json_file: Path | None = typer.Option(
+    json_file: Path | None = typer.Option(  # noqa: B008 - typer API requires declarations in defaults
         None,
         "--json-file",
         "-j",
@@ -368,6 +368,7 @@ def generate_route_types(
             cwd=directory,
             capture_output=True,
             text=True,
+            check=False,  # returncode is inspected explicitly below
         )
 
         if result.returncode != 0:
