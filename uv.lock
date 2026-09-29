@@ -20,8 +20,8 @@ name = "anyio"
 version = "4.13.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "idna", marker = "python_full_version < '3.12'" },
-    { name = "typing-extensions", marker = "python_full_version < '3.12'" },
+    { name = "idna" },
+    { name = "typing-extensions" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/19/14/2c5dd9f512b66549ae92767a9c7b330ae88e1932ca57876909410251fe13/anyio-4.13.0.tar.gz", hash = "sha256:334b70e641fd2221c1505b3890c69882fe4a2df910cba14d97019b90b24439dc", size = 231622, upload-time = "2026-03-24T12:59:09.671Z" }
 wheels = [
@@ -158,8 +158,8 @@ name = "fastapi-ipware"
 version = "0.1.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "python-ipware", marker = "python_full_version < '3.12'" },
-    { name = "starlette", marker = "python_full_version < '3.12'" },
+    { name = "python-ipware" },
+    { name = "starlette" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/e4/96/8135bdc5a9f413a71c3ba68ca76cbf98b3a8d52a2c3da9fda846fa04b341/fastapi_ipware-0.1.2.tar.gz", hash = "sha256:8ea796604040c86d0478064651f30480354b9b57d545bff2e38007c67a48d5bb", size = 4319, upload-time = "2026-01-23T23:24:35.708Z" }
 wheels = [
@@ -575,8 +575,8 @@ name = "starlette"
 version = "1.2.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "anyio", marker = "python_full_version < '3.12'" },
-    { name = "typing-extensions", marker = "python_full_version < '3.12'" },
+    { name = "anyio" },
+    { name = "typing-extensions" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/25/44/ec35f1b6e83094b997da438a02c8c9b0ade2b1e84cfc48bd4656780760a6/starlette-1.2.1.tar.gz", hash = "sha256:9b9b5ebb992e67d6093741e63c2f59e4f6fff986f81163c087867bd7b924b3f6", size = 2701854, upload-time = "2026-05-31T01:07:51.847Z" }
 wheels = [
@@ -600,10 +600,10 @@ resolution-markers = [
     "python_full_version < '3.12'",
 ]
 dependencies = [
-    { name = "fastapi-ipware", marker = "python_full_version < '3.12'" },
-    { name = "orjson", marker = "python_full_version < '3.12'" },
-    { name = "python-decouple-typed", marker = "python_full_version < '3.12'" },
-    { name = "structlog", marker = "python_full_version < '3.12'" },
+    { name = "fastapi-ipware" },
+    { name = "orjson" },
+    { name = "python-decouple-typed" },
+    { name = "structlog" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/99/06/e07b6fccae58c3db317d5611d024dacab6bb6496e745cfa607522fb25c06/structlog_config-0.10.0.tar.gz", hash = "sha256:a71b57a67c3b009ae8dca1a729a87657beb420325af63fffd440ffa55b5ba851", size = 21628, upload-time = "2026-02-06T21:35:50.014Z" }
 wheels = [
@@ -618,9 +618,9 @@ resolution-markers = [
     "python_full_version >= '3.12'",
 ]
 dependencies = [
-    { name = "orjson", marker = "python_full_version >= '3.12'" },
-    { name = "pytest-plugin-utils", marker = "python_full_version >= '3.12'" },
-    { name = "structlog", marker = "python_full_version >= '3.12'" },
+    { name = "orjson" },
+    { name = "pytest-plugin-utils" },
+    { name = "structlog" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/36/5f/759bf3d1f48b9271bf1748dc2ee6e3f1e812e5994e223e41be4b984fec58/structlog_config-0.14.0.tar.gz", hash = "sha256:9d52c73795931e4f1ec9562a7a17a761b0b1092632a73fdb456afaa8ca2f91f1", size = 29884, upload-time = "2026-05-07T21:10:41.233Z" }
 wheels = [
@@ -683,7 +683,7 @@ wheels = [
 
 [[package]]
 name = "typer"
-version = "0.26.7"
+version = "0.27.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "annotated-doc" },
@@ -691,9 +691,9 @@ dependencies = [
     { name = "rich" },
     { name = "shellingham" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/5e/ed/ef06584ccdd5c410df0837951ecd7e15d9a6144ea1bd4c73cecab1a89891/typer-0.26.7.tar.gz", hash = "sha256:e314a34c617e419c091b2830dda3ea1f257134ff593061a8f5b9717ab8dddb3a", size = 201709, upload-time = "2026-06-03T07:18:06.843Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/16/f7/57713ba479fd405eb76de31404b2c744c289e336b2d999511ebf51e496f7/typer-0.27.2.tar.gz", hash = "sha256:269b7eb9d3c202ca84b4bc9618cb04ebb43d3d4d1e567e4c768607232c05f945", size = 204045, upload-time = "2026-08-28T10:26:55.046Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/24/25/2201973529af2c954de0bb725323c3aaed6d7f0ceee8f550dec9185df013/typer-0.26.7-py3-none-any.whl", hash = "sha256:5c87cfbc5d34491c5346ebf49c23e18d56ccb863268d3a8d592b26087c2f5e58", size = 122456, upload-time = "2026-06-03T07:18:05.732Z" },
+    { url = "https://files.pythonhosted.org/packages/dc/bf/205d0004930ede8f542fb58f601526fccf4ae7626075ca1e6c4de5d3d652/typer-0.27.2-py3-none-any.whl", hash = "sha256:b3a5fc4342d5fc8fda8fc3010b1cf117e9249aab7fae800c2eff62fd3842d97d", size = 123130, upload-time = "2026-08-28T10:26:53.752Z" },
 ]
 
 [[package]]
