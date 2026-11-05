@@ -11,6 +11,10 @@ force-exclude = true
 # Add rules: isort (I), flake8-implicit-str-concat (ISC), pyupgrade (UP), flake8-comprehensions (C4), flake8-bugbear (B)
 extend-select = ["I", "ISC", "UP", "C4", "B"]
 
+[lint.flake8-bugbear]
+# Typer declares options by calling these in parameter defaults.
+extend-immutable-calls = ["typer.Argument", "typer.Option"]
+
 [lint.isort]
 section-order = [
     # https://docs.astral.sh/ruff/settings/#lint_isort_section-order
