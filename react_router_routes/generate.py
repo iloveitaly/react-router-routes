@@ -147,7 +147,7 @@ def pattern_to_class_name(pattern: str) -> str:
 def parse_params(pattern: str) -> tuple[list[tuple[str, bool]], bool]:
     """Return ([(param_name, is_optional)], has_splat). param_name is the token as written (camelCase)."""
     params: list[tuple[str, bool]] = []
-    for m in re.finditer(r":([A-Za-z0-9_]+)(\?)?", pattern):
+    for m in re.finditer(r":(\w+)(\?)?", pattern):
         name = m.group(1)
         is_optional = m.group(2) is not None
         params.append((name, is_optional))
@@ -234,14 +234,14 @@ def react_router_path(path: RoutePaths, params: Mapping[str, object] | None = No
             return quote(str(values[name]), safe="")
         return ""
 
-    rendered = re.sub(r":([A-Za-z0-9_]+)\?", _replace_optional, rendered)
+    rendered = re.sub(r":(\w+)\?", _replace_optional, rendered)
 
     def _replace_required(match: re.Match[str]) -> str:
         name = match.group(1)
         assert name in values, f"missing required param: {name}"
         return quote(str(values[name]), safe="")
 
-    rendered = re.sub(r":([A-Za-z0-9_]+)(?!\?)", _replace_required, rendered)
+    rendered = re.sub(r":(\w+)(?!\?)", _replace_required, rendered)
 
     if "*" in rendered:
         assert "splat" in values, "missing required param: splat"
