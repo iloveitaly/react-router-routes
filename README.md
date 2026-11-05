@@ -32,6 +32,12 @@ Using uv (recommended):
 uv add react-router-routes
 ```
 
+## Local CLI development
+
+Run `just install_editable` to install this checkout globally in editable mode. Source changes are reflected without reinstalling.
+
+This requires `uv`, `just`, `zsh`, and `jq`. If mise is available, the recipe also updates every installed `pipx:react-router-routes` environment so mise can use the local checkout. Re-run after mise upgrades, which replace those editable installations.
+
 ## Prerequisites
 
 Your JS project must have `react-router` and a package manager with the `react-router routes --json` command available (React Router v6+ data APIs). The tool automatically detects your package manager (bun, pnpm, or npm) based on lockfiles and availability. The Python process must run inside (or have access to) that project directory so the CLI can execute the command.

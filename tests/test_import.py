@@ -6,3 +6,8 @@ import react_router_routes
 def test_import() -> None:
     """Test that the  can be imported."""
     assert isinstance(react_router_routes.__name__, str)
+
+
+def test_version() -> None:
+    """Test that the version is available."""
+    assert isinstance(react_router_routes.__version__, str)

@@ -7,6 +7,7 @@ invoke Typer's CLI defined in `generate.py`.
 from structlog_config import configure_logger
 
 from .generate import main as _main
+from .version import __version__
 
 logger = configure_logger()
 
@@ -22,4 +23,4 @@ def main() -> None:  # console_scripts entry point
     _main()
 
 
-__all__ = ["main"]
+__all__ = ["__version__", "main"]

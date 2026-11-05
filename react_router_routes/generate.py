@@ -2,12 +2,13 @@ import json
 import os
 import re
 import subprocess
-from importlib.metadata import version
 from pathlib import Path
 
 import typer
 from jinja2 import Environment
 from structlog_config import configure_logger
+
+from .version import __version__
 
 log = configure_logger()
 
@@ -15,8 +16,7 @@ log = configure_logger()
 def version_callback(value: bool):
     """Display version information and exit."""
     if value:
-        pkg_version = version("react-router-routes")
-        typer.echo(f"react-router-routes version {pkg_version}")
+        typer.echo(f"react-router-routes version {__version__}")
         raise typer.Exit()
 
 
