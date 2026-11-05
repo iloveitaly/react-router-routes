@@ -51,8 +51,12 @@ jobs:
           bootstrap: true
           bootstrap_args: --update --yes
       # No -g: write the matrix pin into this repo's mise.toml, not ~/.config/mise.
+      # mise-action already exported the mise.toml interpreter (3.14) on PATH and VIRTUAL_ENV.
+      # Pin uv at the mise install for this cell, or every job recreates a 3.14 venv.
       - run: mise use --path mise.toml python@${{ matrix.python-version }}
-      - run: uv venv --clear
+      - run: |
+          unset VIRTUAL_ENV
+          uv venv --clear --python "$(mise where python)/bin/python"
       - uses: iloveitaly/github-action-direnv-load-and-mask@master
       - run: uv sync
       - name: Check CLI

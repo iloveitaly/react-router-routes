@@ -62,18 +62,18 @@ def lint_generated_file(output_file: Path) -> None:
             check=True,
         )
 
-        # Run ruff check with --fix to automatically fix issues
+        # ruff.toml force-excludes "tmp", which also matches Linux /tmp when a path is passed explicitly.
+        # check=False: ruff applies fixes in place and may still exit non-zero.
         subprocess.run(
-            ["ruff", "check", "--fix", str(output_file)],
+            ["ruff", "check", "--fix", "--no-force-exclude", str(output_file)],
             capture_output=True,
-            check=False,  # Don't fail if there are lint errors
+            check=False,
         )
 
-        # Run ruff format to format the code
         subprocess.run(
-            ["ruff", "format", str(output_file)],
+            ["ruff", "format", "--no-force-exclude", str(output_file)],
             capture_output=True,
-            check=False,  # Don't fail if formatting changes are made
+            check=False,
         )
 
     except (subprocess.CalledProcessError, FileNotFoundError):
