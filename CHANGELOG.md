@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.5.1](https://github.com/iloveitaly/react-router-routes/compare/v0.5.0...v0.5.1) (2026-11-05)
+
+
+### Bug Fixes
+
+* drop unused B008 noqa comments ([71bf4c0](https://github.com/iloveitaly/react-router-routes/commit/71bf4c05e9a6b93702125b840cc04a2f73d8bfc2))
+* ensure correct python version in CI and lint paths in /tmp ([2046097](https://github.com/iloveitaly/react-router-routes/commit/204609751af749bbb4b02c8d192ea98bcd1d9175))
+* lint generated files on Linux and pin matrix Python ([2046097](https://github.com/iloveitaly/react-router-routes/commit/204609751af749bbb4b02c8d192ea98bcd1d9175))
+
 ## [0.5.0](https://github.com/iloveitaly/react-router-routes/compare/v0.4.2...v0.5.0) (2026-09-29)
 
 
