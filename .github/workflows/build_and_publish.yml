@@ -64,6 +64,10 @@ jobs:
       - run: uv run pytest
 
   release-please:
+    # Dependabot PRs cannot read repository secrets. release-please only needs
+    # to run on default-branch pushes, where GITHUB_TOKEN can approve reviews
+    # (`can_approve_pull_request_reviews`) and PyPI publish uses OIDC.
+    if: github.event_name == 'push'
     needs: matrix-test
     runs-on: ubuntu-latest
     outputs:
@@ -79,7 +83,6 @@ jobs:
         id: release
         with:
           release-type: python
-          token: ${{ secrets.GH_PERSONAL_TOKEN }}
 
   build-and-publish:
     needs: release-please
